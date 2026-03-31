@@ -113,6 +113,15 @@
   <div class="lightbox" id="lightbox">
     <button class="lightbox-close" aria-label="Close">&times;</button>
     <img src="" alt="Gallery Image" id="lightbox-img">
+    
+    <!-- Admin Controls Overlay -->
+    <div id="lightboxAdminControls" style="display:none; position:absolute; bottom:30px; left:50%; transform:translateX(-50%); z-index:10000;">
+       <div style="display:inline-flex; gap:10px; background:rgba(0,0,0,0.8); padding:10px 20px; border-radius:30px; backdrop-filter:blur(5px); box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+           <button onclick="lbEdit()" style="color:white; background:transparent; border:1px solid white; padding:5px 15px; border-radius:20px; cursor:pointer; font-weight:600;"><i class="fas fa-edit"></i> Edit</button>
+           <button onclick="lbDelete()" style="color:white; background:#ff5252; border:none; padding:5px 15px; border-radius:20px; cursor:pointer; font-weight:600;"><i class="fas fa-trash"></i> Delete</button>
+           <button onclick="document.getElementById('lightboxAdminControls').style.display='none'" style="color:#fff; background:transparent; border:none; padding:5px 10px; cursor:pointer; font-size:1.2rem;">&times;</button>
+       </div>
+    </div>
   </div>
 
   <!-- CTA -->
@@ -277,7 +286,13 @@
               const lightboxImg = document.getElementById('lightbox-img');
               if(lightbox && lightboxImg) {
                 lightboxImg.src = '/api/image/' + imgData._id;
+                lightboxImg.dataset.id = imgData._id;
+                lightboxImg.dataset.title = imgData.title;
+                lightboxImg.dataset.description = imgData.description || '';
                 lightbox.classList.add('active');
+                
+                const controls = document.getElementById('lightboxAdminControls');
+                if (controls) controls.style.display = 'none';
               }
             });
 
@@ -285,9 +300,68 @@
                 grid.insertBefore(item, grid.firstChild);
             }
           });
+
+          // Define lightbox admin events
+          const mainLbImg = document.getElementById('lightbox-img');
+          if (mainLbImg) {
+              mainLbImg.addEventListener('dblclick', () => {
+                  const controls = document.getElementById('lightboxAdminControls');
+                  if (controls && mainLbImg.dataset.id) {
+                      controls.style.display = 'block';
+                  }
+              });
+          }
+
+          window.lbDelete = async () => {
+              const id = mainLbImg.dataset.id;
+              if(!id) return;
+              const pass = prompt("Enter Admin Password to delete this photo:");
+              if(!pass) return;
+              if(confirm("Permanently delete this photo?")) {
+                  try {
+                      const res = await fetch('/api/image/' + id, { 
+                          method: 'DELETE', 
+                          headers:{'Content-Type':'application/json'}, 
+                          body:JSON.stringify({adminPassword:pass}) 
+                      });
+                      if(res.ok) {
+                          location.reload();
+                      } else { 
+                          const d = await res.json(); 
+                          alert("Failed: " + d.error); 
+                      }
+                  } catch(e) { alert(e.message); }
+              }
+          };
+
+          window.lbEdit = async () => {
+              const id = mainLbImg.dataset.id;
+              if(!id) return;
+              const newTitle = prompt("New Title:", mainLbImg.dataset.title || '');
+              if (newTitle === null) return;
+              const newDesc = prompt("New Description:", mainLbImg.dataset.description || '');
+              if (newDesc === null) return;
+              const pass = prompt("Enter Admin Password to save edits:");
+              if(!pass) return;
+              
+              try {
+                 const res = await fetch('/api/image/' + id, {
+                     method: 'PUT',
+                     headers: {'Content-Type': 'application/json'},
+                     body: JSON.stringify({title: newTitle, description: newDesc, adminPassword: pass})
+                 });
+                 if(res.ok) {
+                     location.reload();
+                 } else { 
+                     const d = await res.json(); 
+                     alert("Failed: " + d.error); 
+                 }
+              } catch(e) { alert(e.message); }
+          };
+
         }
-      } catch (err) {
-        console.error('Failed to load dynamic gallery images', err);
+      } catch(err) {
+        console.error('Failed to load dynamic gallery items:', err);
       }
     });
   </script>
