@@ -174,5 +174,47 @@
   </footer>
 
   <script src="js/script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      try {
+        const response = await fetch('/api/gallery');
+        if (response.ok) {
+          const images = await response.json();
+          const grid = document.querySelector('.gallery-full-grid');
+          
+          // Reverse so appending them puts newest at the top
+          images.reverse().forEach(imgData => {
+            const item = document.createElement('div');
+            item.className = 'gallery-full-item animate-on-scroll';
+            item.setAttribute('data-lightbox', '');
+            
+            item.innerHTML = `
+              <img src="/api/image/${imgData._id}" alt="${imgData.title}">
+              <div class="g-overlay">
+                <h4>${imgData.title}</h4>
+                <p>${imgData.description}</p>
+              </div>
+            `;
+            
+            // Bind lightbox specifically for new elements if existing global script misses them
+            item.addEventListener('click', () => {
+              const lightbox = document.getElementById('lightbox');
+              const lightboxImg = document.getElementById('lightbox-img');
+              if(lightbox && lightboxImg) {
+                lightboxImg.src = '/api/image/' + imgData._id;
+                lightbox.classList.add('active');
+              }
+            });
+
+            if(grid) {
+                grid.insertBefore(item, grid.firstChild);
+            }
+          });
+        }
+      } catch (err) {
+        console.error('Failed to load dynamic gallery images', err);
+      }
+    });
+  </script>
 </body>
 </html>
