@@ -274,12 +274,7 @@ input, textarea, select { font-family: inherit; outline: none; }
   text-shadow: 0 2px 12px rgba(0,0,0,0.5);
 }
 .hero-content h1 span {
-  background: linear-gradient(135deg, var(--accent), var(--accent-light));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  filter: brightness(1.2);
-  font-family: 'Roboto', sans-serif;
+  color: #F08B60;
 }
 .hero-content p {
   font-size: 1.15rem;
