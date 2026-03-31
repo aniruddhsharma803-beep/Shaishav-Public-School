@@ -908,9 +908,11 @@ input, textarea, select { font-family: inherit; outline: none; }
    CONTACT FORM
    ============================================ */
 .contact-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 50px;
+  display: flex;
+  justify-content: center;
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
 }
 .contact-info-card {
   background: linear-gradient(135deg, var(--primary), var(--primary-light));
