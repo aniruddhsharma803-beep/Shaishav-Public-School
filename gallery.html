@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Browse the Shaishav Public School photo gallery — campus, events, sports, academics, and campus life moments captured in pictures.">
+  <title>Gallery — Shaishav Public School</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="top-bar-left">
+        <span><i class="fas fa-phone-alt"></i> +91 98765 43210</span>
+        <span><i class="fas fa-envelope"></i> shaishavpschool@gmail.com</span>
+        <span><i class="fas fa-clock"></i> Mon–Sat 8:00 AM – 3:00 PM</span>
+      </div>
+      <div class="top-bar-right">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="http://www.youtube.com/@shaishavplayschool8050" aria-label="YouTube" target="_blank"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="index.html" class="navbar-brand">
+        <img src="images/logo.jpg" alt="Shaishav Public School Logo" class="logo-img">
+        <div class="brand-text">
+          <h1>Shaishav Public School</h1>
+          <span>शिक्षा - संस्कार - स्वाध्याय</span>
+        </div>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="academics.html">Academics</a>
+        <a href="activities.html">Activities</a>
+        <a href="admissions.html">Admissions</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- PAGE BANNER -->
+  <section class="page-banner">
+    <h1>Photo Gallery</h1>
+    <div class="breadcrumb">
+      <a href="index.html">Home</a> <span>/</span> <span>Gallery</span>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="section">
+    <div class="container">
+      <div class="section-title animate-on-scroll">
+        <h2>Life at Shaishav</h2>
+        <p>A visual journey through our campus, events, and everyday school life</p>
+        <div class="underline"></div>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div class="gallery-full-grid">
+        <!-- DYNAMIC_GALLERY_INSERTION -->
+        <div class="gallery-full-item animate-on-scroll" data-lightbox>
+          <img src="images/gallery-nutrition-week.jpg" alt="Nutrition Week Celebration at Shaishav Public School">
+          <div class="g-overlay">
+            <h4>Nutrition Week</h4>
+            <p>Students showcasing healthy food preparations</p>
+          </div>
+        </div>
+        <div class="gallery-full-item animate-on-scroll" data-lightbox>
+          <img src="images/gallery-student-garlands.jpg" alt="Students with Garlands at Shaishav Public School">
+          <div class="g-overlay">
+            <h4>Student Awards</h4>
+            <p>Celebrating student achievements with garlands</p>
+          </div>
+        </div>
+        <div class="gallery-full-item animate-on-scroll" data-lightbox>
+          <img src="images/gallery-classroom.jpg" alt="Classroom Learning at Shaishav Public School">
+          <div class="g-overlay">
+            <h4>Classroom Learning</h4>
+            <p>Students engaged in their studies</p>
+          </div>
+        </div>
+        <div class="gallery-full-item animate-on-scroll" data-lightbox>
+          <img src="images/gallery-festival.jpg" alt="Festival Celebration at Shaishav Public School">
+          <div class="g-overlay">
+            <h4>Festival Celebration</h4>
+            <p>Students celebrating cultural festivals together</p>
+          </div>
+        </div>
+        <div class="gallery-full-item animate-on-scroll" data-lightbox>
+          <img src="images/gallery-nature.jpg" alt="Nature Activity at Shaishav Public School">
+          <div class="g-overlay">
+            <h4>Nature Connect</h4>
+            <p>Students embracing nature and the environment</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" aria-label="Close">&times;</button>
+    <img src="" alt="Gallery Image" id="lightbox-img">
+  </div>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="container">
+      <h2>Want to See Our Campus in Person?</h2>
+      <p>Schedule a campus visit and experience the Shaishav difference first-hand.</p>
+      <a href="contact.html" class="btn btn-accent" style="font-size:1.05rem;padding:14px 36px;">
+        <i class="fas fa-calendar-alt"></i> Book a Visit
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo-text">Shaishav Public School</div>
+          <p>Shaping tomorrow's leaders through value-based education, holistic development, and a commitment to excellence since 2019.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="http://www.youtube.com/@shaishavplayschool8050" aria-label="YouTube" target="_blank"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+            <li><a href="gallery.html"><i class="fas fa-chevron-right"></i> Gallery</a></li>
+            <li><a href="academics.html"><i class="fas fa-chevron-right"></i> Academics</a></li>
+            <li><a href="activities.html"><i class="fas fa-chevron-right"></i> Activities</a></li>
+            <li><a href="admissions.html"><i class="fas fa-chevron-right"></i> Admissions</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> CBSE Portal</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Student ERP</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Fee Payment</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Careers</a></li>
+            <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact Us</h4>
+          <ul class="footer-contact">
+            <li>
+              <span class="icon"><i class="fas fa-map-marker-alt"></i></span>
+              <span>123 Knowledge Lane, Education City, Gujarat 380015, India</span>
+            </li>
+            <li>
+              <span class="icon"><i class="fas fa-phone-alt"></i></span>
+              <span>+91 98765 43210</span>
+            </li>
+            <li>
+              <span class="icon"><i class="fas fa-envelope"></i></span>
+              <span>shaishavpschool@gmail.com</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2026 Shaishav Public School. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

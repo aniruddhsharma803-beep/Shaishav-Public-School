@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — Shaishav Public School</title>
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <a href="index.html" class="nav-back"><i class="fas fa-arrow-left"></i> Back to Website</a>
+  
+  <div class="bg-circle circle1"></div>
+  <div class="bg-circle circle2"></div>
+
+  <div class="admin-container">
+    <div class="admin-header">
+      <h1>Dashboard Portal</h1>
+      <p>Upload new media directly to the website</p>
+    </div>
+
+    <form id="uploadForm">
+      <div class="form-group">
+        <label for="section">Target Section</label>
+        <select id="section" name="section" required>
+          <option value="gallery">Photo Gallery</option>
+          <!-- Additional sections can be mapped here later -->
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="title">Title / Image Caption</label>
+        <input type="text" id="title" name="title" placeholder="e.g. Annual Sports Day 2026" required>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Short Description (Optional)</label>
+        <input type="text" id="description" name="description" placeholder="A brief context for the media...">
+      </div>
+
+      <div class="form-group">
+        <label>Media File</label>
+        <div class="file-upload-wrapper" id="drop-zone">
+          <input type="file" id="mediaFile" name="mediaFile" accept="image/*,video/*" required>
+          <i class="fas fa-cloud-upload-alt file-upload-icon"></i>
+          <span class="file-upload-text" id="file-name-display">Click or drag file to upload</span>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-submit" id="submitBtn">
+        <span id="btnText">Upload Media</span>
+        <div class="spinner" id="spinner"></div>
+      </button>
+
+      <div class="alert alert-success" id="alertSuccess">
+        <i class="fas fa-check-circle"></i> <span id="successMsg">Upload completed successfully!</span>
+      </div>
+      <div class="alert alert-error" id="alertError">
+        <i class="fas fa-exclamation-circle"></i> <span id="errorMsg">Failed to upload media.</span>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const uploadForm = document.getElementById('uploadForm');
+    const fileInput = document.getElementById('mediaFile');
+    const dropZone = document.getElementById('drop-zone');
+    const fileNameDisplay = document.getElementById('file-name-display');
+    
+    // UI Elements
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
+    const spinner = document.getElementById('spinner');
+    const alertSuccess = document.getElementById('alertSuccess');
+    const alertError = document.getElementById('alertError');
+
+    // Handle File Selection
+    fileInput.addEventListener('change', function() {
+      if(this.files && this.files.length > 0) {
+        fileNameDisplay.textContent = this.files[0].name;
+        dropZone.classList.add('has-file');
+      } else {
+        fileNameDisplay.textContent = 'Click or drag file to upload';
+        dropZone.classList.remove('has-file');
+      }
+    });
+
+    // Form Submission
+    uploadForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(uploadForm);
+
+      // Loading State
+      btnText.style.display = 'none';
+      spinner.style.display = 'block';
+      submitBtn.disabled = true;
+      alertSuccess.style.display = 'none';
+      alertError.style.display = 'none';
+
+      try {
+        const response = await fetch('/upload', {
+          method: 'POST',
+          body: formData
+        });
+        
+        const result = await response.json();
+
+        if(response.ok) {
+          document.getElementById('successMsg').textContent = result.message || 'Media uploaded successfully!';
+          alertSuccess.style.display = 'block';
+          uploadForm.reset();
+          fileNameDisplay.textContent = 'Click or drag file to upload';
+          dropZone.classList.remove('has-file');
+        } else {
+          throw new Error(result.error || 'Server rejected the request');
+        }
+      } catch (err) {
+        document.getElementById('errorMsg').textContent = err.message;
+        alertError.style.display = 'block';
+        console.error('Upload Error:', err);
+      } finally {
+        // Reset button state
+        btnText.style.display = 'block';
+        spinner.style.display = 'none';
+        submitBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
