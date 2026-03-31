@@ -183,7 +183,7 @@
     
     async function fetchGallery() {
       try {
-        const res = await fetch('/api/gallery');
+        const res = await fetch('/api/gallery?t=' + new Date().getTime(), { cache: 'no-store' });
         const images = await res.json();
         
         galleryList.innerHTML = '';

@@ -261,7 +261,7 @@
   <script>
     document.addEventListener("DOMContentLoaded", async () => {
       try {
-        const response = await fetch('/api/gallery');
+        const response = await fetch('/api/gallery?t=' + new Date().getTime(), { cache: 'no-store' });
         if (response.ok) {
           const images = await response.json();
           const grid = document.querySelector('.gallery-full-grid');

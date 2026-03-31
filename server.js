@@ -110,6 +110,7 @@ app.get('/api/gallery', async (req, res) => {
     try {
         // Select only necessary fields to keep payload small
         const images = await GalleryImage.find({ section: 'gallery' }, 'title description createdAt').sort('-createdAt');
+        res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
         res.json(images);
     } catch (err) {
         console.error(err);
