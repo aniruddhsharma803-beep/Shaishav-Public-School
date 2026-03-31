@@ -36,6 +36,17 @@ const GalleryImage = mongoose.model('GalleryImage', gallerySchema);
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
+// Health check endpoint to verify MongoDB connection
+app.get('/api/health', (req, res) => {
+    const dbState = mongoose.connection.readyState;
+    const states = { 0: 'disconnected', 1: 'connected', 2: 'connecting', 3: 'disconnecting' };
+    res.json({
+        status: states[dbState] || 'unknown',
+        mongoUri: process.env.MONGO_URI ? 'SET (hidden)' : 'NOT SET - using localhost fallback',
+        readyState: dbState
+    });
+});
+
 app.post('/upload', upload.single('mediaFile'), async (req, res) => {
     try {
         if (!req.file) {
@@ -46,6 +57,11 @@ app.post('/upload', upload.single('mediaFile'), async (req, res) => {
 
         if (section !== 'gallery') {
             return res.status(400).json({ error: 'Unsupported section for dynamic injection' });
+        }
+
+        // Check if MongoDB is connected before attempting save
+        if (mongoose.connection.readyState !== 1) {
+            return res.status(503).json({ error: 'Database not connected. Please check MONGO_URI environment variable on Render.' });
         }
 
         // Save to MongoDB
@@ -63,8 +79,8 @@ app.post('/upload', upload.single('mediaFile'), async (req, res) => {
 
         res.json({ success: true, message: 'Upload successfully saved to MongoDB!' });
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Server error during upload processing' });
+        console.error('Upload error details:', err.message, err.stack);
+        res.status(500).json({ error: 'Upload failed: ' + err.message });
     }
 });
 
