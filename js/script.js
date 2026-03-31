@@ -97,6 +97,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (img) {
           lightboxImg.src = img.src;
           lightboxImg.alt = img.alt;
+          // Clear any dynamic data to avoid showing edit/delete buttons for statically loaded HTML images
+          delete lightboxImg.dataset.id;
+          delete lightboxImg.dataset.title;
+          delete lightboxImg.dataset.description;
+          const controls = document.getElementById('lightboxAdminControls');
+          if (controls) controls.style.display = 'none';
+          
           lightbox.classList.add('active');
           document.body.style.overflow = 'hidden';
         }
@@ -106,12 +113,16 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.target === lightbox || e.target.classList.contains('lightbox-close')) {
         lightbox.classList.remove('active');
         document.body.style.overflow = '';
+        const controls = document.getElementById('lightboxAdminControls');
+        if (controls) controls.style.display = 'none';
       }
     });
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && lightbox.classList.contains('active')) {
         lightbox.classList.remove('active');
         document.body.style.overflow = '';
+        const controls = document.getElementById('lightboxAdminControls');
+        if (controls) controls.style.display = 'none';
       }
     });
   }
