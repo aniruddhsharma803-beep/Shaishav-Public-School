@@ -14,9 +14,16 @@ app.use(express.json());
 app.use(express.static(__dirname));
 
 // MongoDB Connection
+let mongoError = null;
 mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/school_db')
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('MongoDB connection error:', err));
+  .then(() => {
+    console.log('Connected to MongoDB');
+    mongoError = null;
+  })
+  .catch(err => {
+    console.error('MongoDB connection error:', err.message);
+    mongoError = err.message;
+  });
 
 // Define Gallery Schema
 const gallerySchema = new mongoose.Schema({
@@ -40,11 +47,13 @@ const upload = multer({ storage: storage });
 app.get('/api/health', (req, res) => {
     const dbState = mongoose.connection.readyState;
     const states = { 0: 'disconnected', 1: 'connected', 2: 'connecting', 3: 'disconnecting' };
-    res.json({
+    const result = {
         status: states[dbState] || 'unknown',
         mongoUri: process.env.MONGO_URI ? 'SET (hidden)' : 'NOT SET - using localhost fallback',
         readyState: dbState
-    });
+    };
+    if (mongoError) result.connectionError = mongoError;
+    res.json(result);
 });
 
 app.post('/upload', upload.single('mediaFile'), async (req, res) => {
