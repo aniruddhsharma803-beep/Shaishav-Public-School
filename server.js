@@ -56,7 +56,20 @@ app.get('/api/health', (req, res) => {
     res.json(result);
 });
 
-app.post('/upload', upload.single('mediaFile'), async (req, res) => {
+// Admin Password Middleware
+const checkAuth = (req, res, next) => {
+    const requiredPassword = process.env.ADMIN_PASSWORD;
+    if (!requiredPassword) return next(); // Skip if no password set in Render Environment
+    
+    // Check both body and headers for the password, depending on route type
+    const providedPassword = req.body?.adminPassword || req.headers['x-admin-password'];
+    if (providedPassword !== requiredPassword) {
+        return res.status(401).json({ error: 'Unauthorized: Incorrect Admin Password' });
+    }
+    next();
+};
+
+app.post('/upload', upload.single('mediaFile'), checkAuth, async (req, res) => {
     try {
         if (!req.file) {
             return res.status(400).json({ error: 'No file uploaded' });
@@ -117,6 +130,35 @@ app.get('/api/image/:id', async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Server error' });
+    }
+});
+
+// Endpoint to update existing image metadata
+app.put('/api/image/:id', checkAuth, async (req, res) => {
+    try {
+        const { title, description } = req.body;
+        const updatedImage = await GalleryImage.findByIdAndUpdate(
+            req.params.id,
+            { title: title || 'Gallery Image', description: description || '' },
+            { new: true }
+        );
+        if (!updatedImage) return res.status(404).json({ error: 'Image not found' });
+        res.json({ success: true, message: 'Image details updated successfully!' });
+    } catch (err) {
+        console.error('Update error:', err);
+        res.status(500).json({ error: 'Failed to update image details' });
+    }
+});
+
+// Endpoint to delete an image entirely
+app.delete('/api/image/:id', checkAuth, async (req, res) => {
+    try {
+        const deletedImage = await GalleryImage.findByIdAndDelete(req.params.id);
+        if (!deletedImage) return res.status(404).json({ error: 'Image not found' });
+        res.json({ success: true, message: 'Image deleted successfully!' });
+    } catch (err) {
+        console.error('Delete error:', err);
+        res.status(500).json({ error: 'Failed to delete image' });
     }
 });
 

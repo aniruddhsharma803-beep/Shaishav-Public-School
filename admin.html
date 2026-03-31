@@ -48,6 +48,11 @@
         </div>
       </div>
 
+      <div class="form-group">
+        <label for="adminPassword">Admin Password</label>
+        <input type="password" id="adminPassword" name="adminPassword" placeholder="Required for all actions" required>
+      </div>
+
       <button type="submit" class="btn-submit" id="submitBtn">
         <span id="btnText">Upload Media</span>
         <div class="spinner" id="spinner"></div>
@@ -60,6 +65,42 @@
         <i class="fas fa-exclamation-circle"></i> <span id="errorMsg">Failed to upload media.</span>
       </div>
     </form>
+  </div>
+
+  <div class="admin-container" style="margin-top: 30px;">
+    <div class="admin-header">
+      <h2>Manage Gallery</h2>
+      <p>Edit or delete existing photos</p>
+    </div>
+    <div id="gallery-list" class="gallery-list">
+      <div class="spinner" id="gallery-spinner" style="display:block; margin: 20px auto;"></div>
+    </div>
+  </div>
+
+  <!-- Edit Modal -->
+  <div id="editModal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Edit Image Details</h3>
+        <span class="close-modal" id="closeEditModal">&times;</span>
+      </div>
+      <form id="editForm">
+        <input type="hidden" id="editId">
+        <div class="form-group">
+          <label for="editTitle">Title / Caption</label>
+          <input type="text" id="editTitle" required>
+        </div>
+        <div class="form-group">
+          <label for="editDescription">Description</label>
+          <input type="text" id="editDescription">
+        </div>
+        <div class="form-group">
+          <label for="editAdminPass">Admin Password</label>
+          <input type="password" id="editAdminPass" required>
+        </div>
+        <button type="submit" class="btn-submit">Save Changes</button>
+      </form>
+    </div>
   </div>
 
   <script>
@@ -125,8 +166,119 @@
         btnText.style.display = 'block';
         spinner.style.display = 'none';
         submitBtn.disabled = false;
+        fetchGallery(); // Refresh the list
       }
     });
+
+    // --- MANAGE GALLERY LOGIC ---
+    const galleryList = document.getElementById('gallery-list');
+    const gallerySpinner = document.getElementById('gallery-spinner');
+    
+    // Edit Modal Elements
+    const editModal = document.getElementById('editModal');
+    const closeEditModal = document.getElementById('closeEditModal');
+    const editForm = document.getElementById('editForm');
+    
+    closeEditModal.onclick = () => editModal.style.display = 'none';
+    
+    async function fetchGallery() {
+      try {
+        const res = await fetch('/api/gallery');
+        const images = await res.json();
+        
+        galleryList.innerHTML = '';
+        if(images.length === 0) {
+          galleryList.innerHTML = '<p style="text-align:center; color:#888;">No images found in gallery.</p>';
+          return;
+        }
+        
+        images.forEach(img => {
+          const row = document.createElement('div');
+          row.className = 'gallery-list-item';
+          row.innerHTML = `
+            <img src="/api/image/${img._id}" alt="${img.title}" loading="lazy">
+            <div class="item-info">
+              <h4>${img.title}</h4>
+              <p>${img.description || '<i>No description</i>'}</p>
+            </div>
+            <div class="item-actions">
+              <button class="btn-edit" onclick="openEdit('${img._id}', '${img.title.replace(/'/g, "\\'")}', '${(img.description||'').replace(/'/g, "\\'")}')"><i class="fas fa-edit"></i> Edit</button>
+              <button class="btn-delete" onclick="deleteImage('${img._id}')"><i class="fas fa-trash"></i></button>
+            </div>
+          `;
+          galleryList.appendChild(row);
+        });
+      } catch (err) {
+        galleryList.innerHTML = '<p style="color:red; text-align:center;">Failed to load gallery.</p>';
+      }
+    }
+
+    window.openEdit = (id, title, desc) => {
+      document.getElementById('editId').value = id;
+      document.getElementById('editTitle').value = title;
+      document.getElementById('editDescription').value = desc;
+      const mainPass = document.getElementById('adminPassword');
+      if (mainPass) document.getElementById('editAdminPass').value = mainPass.value; 
+      editModal.style.display = 'flex';
+    };
+
+    window.deleteImage = async (id) => {
+      const pass = prompt("Enter Admin Password to confirm deletion:");
+      if(!pass) return;
+      
+      if(confirm("Are you SURE you want to permanently delete this image?")) {
+        try {
+          const res = await fetch('/api/image/' + id, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ adminPassword: pass })
+          });
+          const data = await res.json();
+          if(res.ok) {
+            alert("Deleted successfully!");
+            fetchGallery();
+          } else {
+            alert("Error: " + data.error);
+          }
+        } catch(err) {
+          alert('Failed to delete: ' + err.message);
+        }
+      }
+    };
+
+    editForm.onsubmit = async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('editId').value;
+      const title = document.getElementById('editTitle').value;
+      const description = document.getElementById('editDescription').value;
+      const adminPassword = document.getElementById('editAdminPass').value;
+      const btn = editForm.querySelector('button');
+      
+      btn.textContent = 'Saving...';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('/api/image/' + id, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title, description, adminPassword })
+        });
+        const data = await res.json();
+        if(res.ok) {
+          editModal.style.display = 'none';
+          fetchGallery();
+        } else {
+          alert("Error: " + data.error);
+        }
+      } catch(err) {
+        alert("Failed to save: " + err.message);
+      } finally {
+        btn.textContent = 'Save Changes';
+        btn.disabled = false;
+      }
+    };
+
+    fetchGallery();
   </script>
 </body>
 </html>
