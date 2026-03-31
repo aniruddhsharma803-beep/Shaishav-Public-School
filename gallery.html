@@ -257,7 +257,7 @@
           // Reverse so appending them puts newest at the top
           images.reverse().forEach(imgData => {
             const item = document.createElement('div');
-            item.className = 'gallery-full-item animate-on-scroll';
+            item.className = 'gallery-full-item animate-on-scroll visible';
             item.setAttribute('data-lightbox', '');
             
             item.innerHTML = `
