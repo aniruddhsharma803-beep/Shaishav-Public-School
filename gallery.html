@@ -234,10 +234,11 @@
             // Reload page to refetch from database and show image at the top
             window.location.reload();
           } else {
-            alert('Upload failed!');
+            const errData = await res.json().catch(() => ({}));
+            alert('Upload failed: ' + (errData.error || res.statusText));
           }
         } catch(err) {
-          alert('Network Error!');
+          alert('Network Error: ' + err.message);
         } finally {
           submitBtn.textContent = 'Submit';
           submitBtn.disabled = false;
