@@ -58,8 +58,7 @@ app.get('/api/health', (req, res) => {
 
 // Admin Password Middleware
 const checkAuth = (req, res, next) => {
-    const requiredPassword = process.env.ADMIN_PASSWORD;
-    if (!requiredPassword) return next(); // Skip if no password set in Render Environment
+    const requiredPassword = process.env.ADMIN_PASSWORD || 'Shaishavp';
     
     // Check both body and headers for the password, depending on route type
     const providedPassword = req.body?.adminPassword || req.headers['x-admin-password'];
