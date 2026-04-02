@@ -233,7 +233,7 @@ input, textarea, select { font-family: inherit; outline: none; }
   display: flex;
   align-items: center;
   overflow: hidden;
-  background: url('../images/leader-bg.jpg') center/cover no-repeat;
+  background: url('../images/student-nature.png') center/cover no-repeat;
 }
 .hero-overlay {
   position: absolute;
