@@ -68,7 +68,10 @@
     </div>
   </div>
 
-  <div class="container">
+  <div class="container" style="position: relative;">
+    <button onclick="logoutAdmin()" style="position: absolute; top: 20px; right: 20px; background: rgba(255,107,107,0.1); color: #ff6b6b; border: 1px solid rgba(255,107,107,0.3); padding: 8px 16px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase;">
+      <i class="fas fa-lock"></i> Lock
+    </button>
     <h1>Notice Board Admin</h1>
 
     <h2>Add New Notice</h2>
@@ -138,6 +141,11 @@
         document.body.classList.remove('locked');
         fetchNotices();
       }, 400);
+    }
+
+    function logoutAdmin() {
+      sessionStorage.removeItem('adminPassword');
+      location.reload();
     }
 
     async function fetchNotices() {
