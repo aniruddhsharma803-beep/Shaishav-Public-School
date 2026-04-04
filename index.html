@@ -106,21 +106,23 @@
     </div>
   </div>
 
-  <!-- ======== ABOUT PREVIEW ======== -->
+  <!-- ======== ABOUT + EVENTS SIDE-BY-SIDE ======== -->
   <section class="about-preview section" id="about">
     <div class="container">
-      <div class="about-grid animate-on-scroll">
-        <div class="about-image">
-          <img src="images/imageshand-painting.jpeg" alt="Shaishav Public School Campus">
-          <div class="experience-badge">
-            <h3>7+</h3>
-            <p>Years of Excellence</p>
+      <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; align-items: start;">
+
+        <!-- LEFT: Welcome Section -->
+        <div class="animate-on-scroll">
+          <div class="about-image" style="margin-bottom: 30px;">
+            <img src="images/imageshand-painting.jpeg" alt="Shaishav Public School Campus">
+            <div class="experience-badge">
+              <h3>7+</h3>
+              <p>Years of Excellence</p>
+            </div>
           </div>
-        </div>
-        <div class="about-text">
-          <h2>Welcome to Shaishav Public School</h2>
-          <p>Shaishav Public School is committed to nurturing young minds by seamlessly blending the richness of Indian values with scientific temper. We believe education is not merely about marks — it is about shaping the complete personality of a child.</p>
-          <p>Our approach focuses on holistic development — building character, curiosity, confidence, and compassion. We aim to raise children who are vibrant, enthusiastic, and ready to embrace life with purpose and joy.</p>
+          <h2 style="font-size: 2rem; color: var(--text-dark); margin-bottom: 16px;">Welcome to Shaishav Public School</h2>
+          <p style="color: var(--text-muted); margin-bottom: 16px;">Shaishav Public School is committed to nurturing young minds by seamlessly blending the richness of Indian values with scientific temper. We believe education is not merely about marks — it is about shaping the complete personality of a child.</p>
+          <p style="color: var(--text-muted); margin-bottom: 24px;">Our approach focuses on holistic development — building character, curiosity, confidence, and compassion. We aim to raise children who are vibrant, enthusiastic, and ready to embrace life with purpose and joy.</p>
           <div class="about-features">
             <div class="about-feature">
               <div class="icon"><i class="fas fa-chalkboard-teacher"></i></div>
@@ -139,10 +141,66 @@
               <span>Smart Classrooms</span>
             </div>
           </div>
-          <a href="about.html" class="btn btn-primary">
+          <a href="about.html" class="btn btn-primary" style="margin-top: 20px;">
             <i class="fas fa-arrow-right"></i> Read More
           </a>
         </div>
+
+        <!-- RIGHT: Upcoming Events -->
+        <div class="animate-on-scroll">
+          <h3 style="font-size: 1.4rem; color: var(--text-dark); margin-bottom: 20px; text-align: center;">
+            <i class="fas fa-calendar-alt" style="color: var(--accent); margin-right: 8px;"></i>Upcoming Events
+          </h3>
+          <div class="notice-board">
+            <div class="notice-board-header">
+              <span><i class="fas fa-bell"></i> Notice Board</span>
+              <div class="blink"></div>
+            </div>
+            <div class="notice-list">
+              <div class="notice-item">
+                <div class="notice-date">
+                  <div class="day">22</div>
+                  <div class="month">APR</div>
+                </div>
+                <div class="notice-content">
+                  <h4>Earth Day Celebration</h4>
+                  <p>Tree plantation, poster-making, and awareness rally across campus.</p>
+                </div>
+              </div>
+              <div class="notice-item">
+                <div class="notice-date">
+                  <div class="day">05</div>
+                  <div class="month">MAY</div>
+                </div>
+                <div class="notice-content">
+                  <h4>Inter-School Debate Competition</h4>
+                  <p>Top schools across the district compete in our annual debate championship.</p>
+                </div>
+              </div>
+              <div class="notice-item">
+                <div class="notice-date">
+                  <div class="day">15</div>
+                  <div class="month">MAY</div>
+                </div>
+                <div class="notice-content">
+                  <h4>Summer Camp Registration</h4>
+                  <p>Art, music, dance, swimming, and coding workshop registrations open.</p>
+                </div>
+              </div>
+              <div class="notice-item">
+                <div class="notice-date">
+                  <div class="day">25</div>
+                  <div class="month">MAR</div>
+                </div>
+                <div class="notice-content">
+                  <h4>Annual Sports Day 2026</h4>
+                  <p>Inter-house athletics, relay races, and prize distribution ceremony.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
