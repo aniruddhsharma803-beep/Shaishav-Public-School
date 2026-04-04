@@ -11,6 +11,16 @@ const requireAdmin = (req, res, next) => {
   }
 };
 
+// Verify Admin Password Endpoint
+router.post('/login', (req, res) => {
+  const adminPass = process.env.ADMIN_PASSWORD || 'Shaishavp';
+  if (req.body.password === adminPass) {
+    res.status(200).json({ message: "Success" });
+  } else {
+    res.status(401).json({ message: "Unauthorized: Incorrect password." });
+  }
+});
+
 // GET all notices
 router.get('/', async (req, res) => {
   try {
