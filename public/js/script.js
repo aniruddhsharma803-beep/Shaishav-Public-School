@@ -194,21 +194,60 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ---- Notice Board Auto-scroll ----
-  const noticeList = document.querySelector('.notice-list');
-  if (noticeList && noticeList.children.length > 3) {
-    setInterval(() => {
-      const first = noticeList.firstElementChild;
-      first.style.transition = 'all 0.5s ease';
-      first.style.opacity = '0';
-      first.style.transform = 'translateX(-20px)';
-      setTimeout(() => {
-        noticeList.appendChild(first);
-        first.style.transition = 'none';
-        first.style.opacity = '1';
-        first.style.transform = '';
-      }, 500);
-    }, 4000);
+  // ---- Notice Board Auto-scroll & Dynamic Fetch ----
+  const dynamicNoticeList = document.getElementById('dynamicNoticeList');
+  if (dynamicNoticeList) {
+    fetch('/api/notices')
+      .then(res => res.json())
+      .then(notices => {
+        dynamicNoticeList.innerHTML = '';
+        if(notices.length === 0) {
+          dynamicNoticeList.innerHTML = '<p style="text-align:center; padding:20px; color:var(--text-muted);">No updates at this moment.</p>';
+        } else {
+          notices.forEach(notice => {
+            const item = document.createElement('div');
+            item.className = 'notice-item';
+            
+            // Add accent color styling for the label
+            let badgeStyle = '';
+            if(notice.labelColor === 'accent') badgeStyle = 'color: #ff6b6b;';
+            else if(notice.labelColor === 'primary') badgeStyle = 'color: #1a1a2e;';
+            else badgeStyle = 'color: #4CAF50;';
+
+            item.innerHTML = `
+              <div class="notice-date">
+                <div class="day">${notice.date}</div>
+                <div class="month">${notice.month}</div>
+              </div>
+              <div class="notice-content">
+                <h4><span style="${badgeStyle} font-size: 0.85em; font-weight:800; margin-right:6px;">[${notice.label}]</span> ${notice.title}</h4>
+                <p>${notice.description}</p>
+              </div>
+            `;
+            dynamicNoticeList.appendChild(item);
+          });
+          
+          // Re-initialize Auto-scroll if enough elements
+          if (dynamicNoticeList.children.length > 3) {
+            setInterval(() => {
+              const first = dynamicNoticeList.firstElementChild;
+              first.style.transition = 'all 0.5s ease';
+              first.style.opacity = '0';
+              first.style.transform = 'translateX(-20px)';
+              setTimeout(() => {
+                dynamicNoticeList.appendChild(first);
+                first.style.transition = 'none';
+                first.style.opacity = '1';
+                first.style.transform = '';
+              }, 500);
+            }, 4000);
+          }
+        }
+      })
+      .catch(err => {
+        dynamicNoticeList.innerHTML = '<p style="text-align:center; color:red;">Failed to load notices.</p>';
+        console.error(err);
+      });
   }
 
   // ---- Smooth scroll for anchor links ----
