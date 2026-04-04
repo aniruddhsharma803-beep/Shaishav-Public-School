@@ -480,6 +480,42 @@ input, textarea, select { font-family: inherit; outline: none; }
   color: var(--primary);
   font-size: 1.1rem;
 }
+.principal-img-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/4;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+}
+.principal-img-wrapper .principal-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.principal-img-placeholder {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: rgba(26,26,46,0.5);
+}
+.principal-img-placeholder i {
+  font-size: 4rem;
+  opacity: 0.6;
+}
+.principal-img-placeholder span {
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.principal-img-wrapper.placeholder-active .principal-img-placeholder {
+  display: flex;
+}
 
 /* ============================================
    FEATURES / FACILITIES
