@@ -21,9 +21,45 @@
     .notice-card.green { border-left-color: #4CAF50; }
     
     .btn-delete { background-color: #333; padding: 8px 12px; font-size: 0.85rem; }
+    
+    /* Premium Login Modal */
+    body.locked { overflow: hidden; }
+    #loginOverlay {
+      position: fixed; inset: 0; z-index: 9999;
+      background: rgba(10, 10, 20, 0.6);
+      backdrop-filter: blur(15px);
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity 0.4s ease;
+    }
+    .login-modal {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 40px; border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      text-align: center; max-width: 400px; width: 90%;
+      border: 1px solid rgba(255,255,255,0.5);
+    }
+    .login-modal h2 { margin-top: 0; color: #1a1a2e; margin-bottom: 20px; font-weight: 800; font-size: 1.8rem; }
+    .login-modal input {
+      font-size: 1rem; padding: 14px; border-radius: 10px; border: 2px solid #e0e6ed; width: 100%; margin-bottom: 24px; outline: none; transition: 0.3s; font-family: 'Inter', sans-serif;
+    }
+    .login-modal input:focus { border-color: #ffd700; box-shadow: 0 0 10px rgba(255,215,0,0.3); }
+    .login-modal button {
+      background: linear-gradient(135deg, #ffd700, #ffb300); color: #1a1a2e; padding: 14px 24px; border-radius: 10px; font-size: 1.05rem; font-weight: 700; width: 100%; letter-spacing: 0.5px;
+    }
+    .login-modal button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255,215,0,0.4); background-color: #ffd700; }
   </style>
 </head>
 <body>
+
+  <!-- Premium Login Overlay -->
+  <div id="loginOverlay">
+    <div class="login-modal">
+      <h2><span style="color:#ffb300;">🔒</span> Admin Access</h2>
+      <p style="color:#666; margin-bottom: 24px; font-size: 0.95rem;">Enter your secure password to manage the Notice Board.</p>
+      <input type="password" id="adminPasswordInput" placeholder="Password..." onkeypress="if(event.key === 'Enter') submitPassword()">
+      <button onclick="submitPassword()">Unlock Dashboard</button>
+    </div>
+  </div>
 
   <div class="container">
     <h1>Notice Board Admin</h1>
@@ -77,13 +113,26 @@
 
   <script>
     let adminPassword = sessionStorage.getItem('adminPassword');
+    
     if (!adminPassword) {
-      adminPassword = prompt("Please enter the Admin Password:");
-      if (adminPassword) {
-        sessionStorage.setItem('adminPassword', adminPassword);
-      } else {
-        document.body.innerHTML = "<h2 style='text-align:center;margin-top:50px;color:red;'>Access Denied. Reload to try again.</h2>";
-      }
+      document.body.classList.add('locked');
+    } else {
+      document.getElementById('loginOverlay').style.display = 'none';
+      document.body.classList.remove('locked');
+      fetchNotices();
+    }
+
+    function submitPassword() {
+      const pwd = document.getElementById('adminPasswordInput').value;
+      if (!pwd) return;
+      sessionStorage.setItem('adminPassword', pwd);
+      adminPassword = pwd;
+      document.getElementById('loginOverlay').style.opacity = '0';
+      setTimeout(() => {
+        document.getElementById('loginOverlay').style.display = 'none';
+        document.body.classList.remove('locked');
+        fetchNotices();
+      }, 400);
     }
 
     async function fetchNotices() {
@@ -153,8 +202,7 @@
       fetchNotices();
     });
 
-    // Load initial notices
-    fetchNotices();
+    // Initial load handled by login sequence
   </script>
 
 </body>
