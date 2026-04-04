@@ -3,7 +3,7 @@ const router = express.Router();
 const Notice = require('../models/Notice');
 
 const requireAdmin = (req, res, next) => {
-  const adminPass = process.env.ADMIN_PASSWORD || 'ShaishavAdmin';
+  const adminPass = process.env.ADMIN_PASSWORD || 'Shaishavp';
   if (req.headers['x-admin-password'] === adminPass) {
     next();
   } else {
