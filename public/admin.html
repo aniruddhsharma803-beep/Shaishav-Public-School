@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard — Shaishav Public School</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
     body { font-family: 'Inter', sans-serif; background: #0b0c10; color: #c5c6c7; margin: 0; padding: 40px 20px; background-image: radial-gradient(circle at top right, #1f2833, #0b0c10); min-height: 100vh; }
@@ -33,27 +34,49 @@
     body.locked { overflow: hidden; }
     #loginOverlay {
       position: fixed; inset: 0; z-index: 9999;
-      background: rgba(10, 10, 20, 0.6);
-      backdrop-filter: blur(15px);
+      background-color: #000;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(255, 99, 132, 0.5) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(153, 102, 255, 0.5) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(54, 162, 235, 0.5) 0px, transparent 50%),
+        radial-gradient(at 0% 100%, rgba(75, 192, 192, 0.5) 0px, transparent 50%);
       display: flex; align-items: center; justify-content: center;
       transition: opacity 0.4s ease;
     }
     .login-modal {
-      background: rgba(255, 255, 255, 0.95);
-      padding: 40px; border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-      text-align: center; max-width: 400px; width: 90%;
-      border: 1px solid rgba(255,255,255,0.5);
+      background: rgba(255, 255, 255, 0.05);
+      padding: 50px 40px; border-radius: 24px;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      text-align: center; max-width: 420px; width: 90%;
+      color: #fff;
     }
-    .login-modal h2 { margin-top: 0; color: #1a1a2e; margin-bottom: 20px; font-weight: 800; font-size: 1.8rem; }
-    .login-modal input {
-      font-size: 1rem; padding: 14px; border-radius: 10px; border: 2px solid #e0e6ed; width: 100%; margin-bottom: 24px; outline: none; transition: 0.3s; font-family: 'Inter', sans-serif;
+    .login-modal h2 { margin-top: 0; margin-bottom: 40px; font-weight: 800; font-size: 2rem; letter-spacing: 2px; }
+    .login-modal h2 span.accent { color: #49ffe6; }
+    .input-group { position: relative; margin-bottom: 25px; text-align: left; }
+    .input-group i { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: #fff; font-size: 1.2rem; }
+    .login-modal input.glass-input {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px; padding: 18px 50px 18px 20px;
+      color: #fff; font-size: 1rem; width: 100%; box-sizing: border-box; outline: none; transition: 0.3s;
     }
-    .login-modal input:focus { border-color: #ffd700; box-shadow: 0 0 10px rgba(255,215,0,0.3); }
-    .login-modal button {
-      background: linear-gradient(135deg, #ffd700, #ffb300); color: #1a1a2e; padding: 14px 24px; border-radius: 10px; font-size: 1.05rem; font-weight: 700; width: 100%; letter-spacing: 0.5px;
+    .login-modal input.glass-input::placeholder { color: rgba(255,255,255,0.7); }
+    .login-modal input.glass-input:focus { border-color: #49ffe6; background: rgba(255,255,255,0.15); box-shadow: 0 0 15px rgba(73,255,230,0.3); }
+    
+    .login-modal button.glass-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: #fff; padding: 16px 24px; border-radius: 30px;
+      font-size: 1.1rem; font-weight: 600; width: 60%; cursor: pointer; transition: 0.3s; letter-spacing: 1px; margin-top: 10px;
     }
-    .login-modal button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255,215,0,0.4); background-color: #ffd700; }
+    .login-modal button.glass-btn:hover { background: rgba(255, 255, 255, 0.3); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(255,255,255,0.2); }
+    
+    .login-modal .links { display: flex; justify-content: space-between; margin-top: 30px; font-size: 0.85rem; color: #fff; padding: 0 10px; }
+    .login-modal .links span { cursor: pointer; transition: 0.3s; opacity: 0.8; }
+    .login-modal .links span:hover { opacity: 1; color: #49ffe6; }
   </style>
 </head>
 <body>
@@ -61,10 +84,24 @@
   <!-- Premium Login Overlay -->
   <div id="loginOverlay">
     <div class="login-modal">
-      <h2><span style="color:#ffb300;">🔒</span> Admin Access</h2>
-      <p style="color:#666; margin-bottom: 24px; font-size: 0.95rem;">Enter your secure password to manage the Notice Board.</p>
-      <input type="password" id="adminPasswordInput" placeholder="Password..." onkeypress="if(event.key === 'Enter') submitPassword()">
-      <button onclick="submitPassword()">Unlock Dashboard</button>
+      <h2>ADMIN<span class="accent">PORTAL</span><br><span style="font-size: 1.2rem; font-weight: 400; letter-spacing: 1px;">LOGIN</span></h2>
+      
+      <div class="input-group">
+        <input type="text" class="glass-input" placeholder="Username" value="Admin" readonly>
+        <i class="fas fa-user"></i>
+      </div>
+      
+      <div class="input-group">
+        <input type="password" id="adminPasswordInput" class="glass-input" placeholder="**********" onkeypress="if(event.key === 'Enter') submitPassword()">
+        <i class="fas fa-lock"></i>
+      </div>
+      
+      <button class="glass-btn" onclick="submitPassword()">LOGIN</button>
+      
+      <div class="links">
+        <span>Remember me</span>
+        <span>Forgot password?</span>
+      </div>
     </div>
   </div>
 
