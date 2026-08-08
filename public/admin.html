@@ -100,7 +100,7 @@
       
       <div class="input-group">
         <input type="password" id="adminPasswordInput" class="glass-input" placeholder="**********" onkeypress="if(event.key === 'Enter') submitPassword()">
-        <i class="fas fa-lock"></i>
+        <i id="togglePasswordIcon" class="fas fa-eye" onclick="togglePasswordVisibility()" style="cursor: pointer;" title="Show Password"></i>
       </div>
       
       <p id="loginError" style="color: #ff6b6b; font-size: 0.9rem; font-weight: 600; text-align: center; margin-top: -10px; margin-bottom: 20px; display: none; text-shadow: 0 0 5px rgba(255,107,107,0.4);"></p>
@@ -167,6 +167,20 @@
 
   <script>
     let adminPassword = sessionStorage.getItem('adminPassword');
+
+    function togglePasswordVisibility() {
+      const pwdInput = document.getElementById('adminPasswordInput');
+      const icon = document.getElementById('togglePasswordIcon');
+      if (pwdInput.type === 'password') {
+        pwdInput.type = 'text';
+        icon.className = 'fas fa-eye-slash';
+        icon.title = 'Hide Password';
+      } else {
+        pwdInput.type = 'password';
+        icon.className = 'fas fa-eye';
+        icon.title = 'Show Password';
+      }
+    }
     
     if (!adminPassword) {
       document.body.classList.add('locked');

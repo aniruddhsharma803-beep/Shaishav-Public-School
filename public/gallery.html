@@ -199,7 +199,10 @@
         <input type="file" name="mediaFile" accept="image/*" required style="width:100%; margin-bottom:15px; padding:8px; background:#f9f9f9; border-radius:8px; border:1px dashed #ccc;">
         
         <label style="display:block; margin-bottom:5px; font-size:0.9rem; font-weight:500;">Admin Password</label>
-        <input type="password" name="adminPassword" placeholder="Required" required style="width:100%; padding:10px; margin-bottom:25px; border:1px solid #ddd; border-radius:8px;">
+        <div style="position: relative; margin-bottom: 25px;">
+          <input type="password" id="galleryAdminPassword" name="adminPassword" placeholder="Required" required style="width:100%; padding:10px 40px 10px 10px; border:1px solid #ddd; border-radius:8px; box-sizing:border-box;">
+          <i id="galleryToggleIcon" class="fas fa-eye" onclick="toggleGalleryPassword()" style="position:absolute; right:12px; top:50%; transform:translateY(-50%); cursor:pointer; color:#666;" title="Show Password"></i>
+        </div>
 
         <button type="submit" class="btn btn-accent" style="width:100%; justify-content:center;">Submit</button>
       </form>
@@ -208,6 +211,20 @@
 
   <script src="js/script.js"></script>
   <script>
+    function toggleGalleryPassword() {
+      const input = document.getElementById('galleryAdminPassword');
+      const icon = document.getElementById('galleryToggleIcon');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.className = 'fas fa-eye-slash';
+        icon.title = 'Hide Password';
+      } else {
+        input.type = 'password';
+        icon.className = 'fas fa-eye';
+        icon.title = 'Show Password';
+      }
+    }
+
     // Secret double click listener
     const secretTrigger = document.getElementById('secret-upload-trigger');
     const secretModal = document.getElementById('secret-modal');
