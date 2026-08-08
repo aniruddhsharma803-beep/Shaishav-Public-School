@@ -193,6 +193,318 @@
       background: #dc2626;
       color: #ffffff;
     }
+
+    /* ======== SECTION DIVIDER ======== */
+    .section-divider {
+      margin: 50px 0 30px;
+      padding-top: 30px;
+      border-top: 2px solid #e2e8f0;
+    }
+    .section-divider h1 {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+    .section-divider p {
+      color: #64748b;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    /* ======== GALLERY MANAGEMENT ======== */
+    .gallery-admin-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .gallery-admin-card {
+      background: #f8fafc;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid #e2e8f0;
+      transition: 0.25s ease;
+      position: relative;
+    }
+
+    .gallery-admin-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+
+    .gallery-admin-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-admin-card .card-body {
+      padding: 14px 16px;
+    }
+
+    .gallery-admin-card .card-body h4 {
+      font-size: 0.95rem;
+      color: #0f172a;
+      margin: 0 0 4px 0;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .gallery-admin-card .card-body p {
+      font-size: 0.82rem;
+      color: #64748b;
+      margin: 0 0 12px 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .gallery-admin-card .card-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-edit {
+      background: #e0f2fe;
+      color: #0284c7;
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      border-radius: 8px;
+      border: 1px solid #7dd3fc;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .btn-edit:hover {
+      background: #0284c7;
+      color: #ffffff;
+    }
+
+    .btn-delete-sm {
+      background: #fee2e2;
+      color: #dc2626;
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      border-radius: 8px;
+      border: 1px solid #fca5a5;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .btn-delete-sm:hover {
+      background: #dc2626;
+      color: #ffffff;
+    }
+
+    .gallery-empty {
+      text-align: center;
+      padding: 40px 20px;
+      color: #94a3b8;
+    }
+
+    .gallery-empty i {
+      font-size: 3rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .gallery-stats {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .gallery-stat-badge {
+      background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+      border: 1px solid #bbf7d0;
+      padding: 10px 20px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #166534;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ======== UPLOAD FORM ======== */
+    .upload-form {
+      background: #f8fafc;
+      border: 2px dashed #cbd5e1;
+      border-radius: 16px;
+      padding: 30px;
+      margin-bottom: 30px;
+      transition: 0.2s;
+    }
+
+    .upload-form:hover {
+      border-color: #f26a36;
+    }
+
+    .upload-form h3 {
+      margin: 0 0 20px 0;
+      font-size: 1.1rem;
+      color: #334155;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .file-input-wrapper {
+      position: relative;
+      margin-bottom: 15px;
+    }
+
+    .file-input-wrapper input[type="file"] {
+      padding: 12px;
+      background: #ffffff;
+    }
+
+    /* ======== EDIT MODAL ======== */
+    .edit-modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .edit-modal-overlay.active {
+      display: flex;
+    }
+
+    .edit-modal {
+      background: #ffffff;
+      padding: 35px;
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+      max-width: 450px;
+      width: 90%;
+      position: relative;
+    }
+
+    .edit-modal h2 {
+      margin: 0 0 25px 0;
+      font-size: 1.4rem;
+      color: #0f172a;
+    }
+
+    .edit-modal .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      color: #94a3b8;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .edit-modal .modal-close:hover {
+      color: #ef4444;
+    }
+
+    .edit-modal .modal-field {
+      margin-bottom: 18px;
+    }
+
+    .edit-modal .modal-field label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .edit-modal .modal-field input,
+    .edit-modal .modal-field textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      background: #f8fafc;
+      font-size: 0.95rem;
+      font-family: 'Poppins', sans-serif;
+      transition: 0.2s;
+    }
+
+    .edit-modal .modal-field input:focus,
+    .edit-modal .modal-field textarea:focus {
+      border-color: #f26a36;
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(242, 106, 54, 0.15);
+      outline: none;
+    }
+
+    .edit-modal .modal-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .btn-save {
+      background: linear-gradient(135deg, #f26a36, #fb923c);
+      color: #ffffff;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: 0.2s;
+      box-shadow: 0 4px 14px rgba(242, 106, 54, 0.3);
+      flex: 1;
+    }
+
+    .btn-save:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(242, 106, 54, 0.4);
+    }
+
+    .btn-cancel {
+      background: #f1f5f9;
+      color: #64748b;
+      border: 1px solid #e2e8f0;
+      padding: 12px 28px;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .btn-cancel:hover {
+      background: #e2e8f0;
+      color: #334155;
+    }
+
+    /* Loading spinner */
+    .loading-spinner {
+      text-align: center;
+      padding: 40px;
+      color: #94a3b8;
+    }
+
+    .loading-spinner i {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      display: block;
+    }
     
     /* Clean White Modal UI (Matching Upload Photo Modal) */
     body.locked { overflow: hidden; }
@@ -411,6 +723,66 @@
 
     <h2 style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #e2e8f0;">Current Notices</h2>
     <div id="noticeList">Loading notices...</div>
+
+    <!-- ======== GALLERY MANAGEMENT SECTION ======== -->
+    <div class="section-divider">
+      <h1><i class="fas fa-images" style="color: #f26a36;"></i> Gallery Management</h1>
+      <p>Upload, edit, and delete gallery photos</p>
+    </div>
+
+    <!-- Upload Photo Form -->
+    <div class="upload-form">
+      <h3><i class="fas fa-cloud-upload-alt" style="color: #f26a36;"></i> Upload New Photo</h3>
+      <form id="uploadForm">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+          <div>
+            <label>Photo Title</label>
+            <input type="text" id="photoTitle" placeholder="e.g. Annual Day 2026" required>
+          </div>
+          <div>
+            <label>Description (Optional)</label>
+            <input type="text" id="photoDesc" placeholder="Brief description...">
+          </div>
+        </div>
+        <div class="file-input-wrapper">
+          <label>Select Image</label>
+          <input type="file" id="photoFile" accept="image/*" required>
+        </div>
+        <button type="submit" id="uploadBtn" class="btn-submit">
+          <i class="fas fa-upload"></i> Upload Photo
+        </button>
+      </form>
+    </div>
+
+    <!-- Gallery Stats & Grid -->
+    <div class="gallery-stats" id="galleryStats"></div>
+    <div id="galleryGrid" class="gallery-admin-grid">
+      <div class="loading-spinner">
+        <i class="fas fa-spinner fa-spin"></i>
+        Loading gallery...
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Photo Modal -->
+  <div class="edit-modal-overlay" id="editModalOverlay">
+    <div class="edit-modal">
+      <button class="modal-close" onclick="closeEditModal()"><i class="fas fa-times"></i></button>
+      <h2><i class="fas fa-edit" style="color: #f26a36;"></i> Edit Photo</h2>
+      <div class="modal-field">
+        <label>Title</label>
+        <input type="text" id="editTitle" placeholder="Photo title">
+      </div>
+      <div class="modal-field">
+        <label>Description</label>
+        <textarea id="editDesc" rows="3" placeholder="Photo description..."></textarea>
+      </div>
+      <input type="hidden" id="editPhotoId">
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closeEditModal()">Cancel</button>
+        <button class="btn-save" id="saveEditBtn" onclick="savePhotoEdit()"><i class="fas fa-check"></i> Save Changes</button>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -436,6 +808,7 @@
       document.getElementById('loginOverlay').style.display = 'none';
       document.body.classList.remove('locked');
       fetchNotices();
+      fetchGallery();
     }
 
     async function submitPassword() {
@@ -466,6 +839,7 @@
           document.getElementById('loginOverlay').style.display = 'none';
           document.body.classList.remove('locked');
           fetchNotices();
+          fetchGallery();
         }, 300);
 
       } catch (err) {
@@ -481,6 +855,10 @@
       sessionStorage.removeItem('adminPassword');
       location.reload();
     }
+
+    // ==========================================
+    //  NOTICE BOARD FUNCTIONS
+    // ==========================================
 
     async function fetchNotices() {
       try {
@@ -575,6 +953,201 @@
       } finally {
         submitBtn.innerHTML = originalBtnHTML;
         submitBtn.disabled = false;
+      }
+    });
+
+    // ==========================================
+    //  GALLERY MANAGEMENT FUNCTIONS
+    // ==========================================
+
+    async function fetchGallery() {
+      const grid = document.getElementById('galleryGrid');
+      const statsDiv = document.getElementById('galleryStats');
+      grid.innerHTML = '<div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i>Loading gallery...</div>';
+
+      try {
+        const resp = await fetch('/api/gallery');
+        if (!resp.ok) throw new Error('Failed to fetch gallery');
+        const items = await resp.json();
+        
+        // Stats badge
+        statsDiv.innerHTML = `
+          <div class="gallery-stat-badge">
+            <i class="fas fa-images"></i> ${items.length} Photo${items.length !== 1 ? 's' : ''} in Gallery
+          </div>
+        `;
+
+        grid.innerHTML = '';
+
+        if (items.length === 0) {
+          grid.innerHTML = `
+            <div class="gallery-empty" style="grid-column: 1 / -1;">
+              <i class="fas fa-camera"></i>
+              <p>No photos uploaded yet.<br>Use the form above to add photos.</p>
+            </div>
+          `;
+          return;
+        }
+
+        items.forEach(item => {
+          const card = document.createElement('div');
+          card.className = 'gallery-admin-card';
+          card.innerHTML = `
+            <img src="/api/image/${item._id}" alt="${item.title || 'Gallery Photo'}" loading="lazy">
+            <div class="card-body">
+              <h4>${item.title || 'Untitled'}</h4>
+              <p>${item.description || 'No description'}</p>
+              <div class="card-actions">
+                <button class="btn-edit" onclick="openEditModal('${item._id}', '${(item.title || '').replace(/'/g, "\\'").replace(/"/g, '&quot;')}', '${(item.description || '').replace(/'/g, "\\'").replace(/"/g, '&quot;')}')">
+                  <i class="fas fa-pen"></i> Edit
+                </button>
+                <button class="btn-delete-sm" onclick="deletePhoto('${item._id}')">
+                  <i class="fas fa-trash"></i> Delete
+                </button>
+              </div>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+      } catch (err) {
+        console.error('Gallery fetch error:', err);
+        grid.innerHTML = `<p style="color:#ef4444; grid-column: 1/-1;">Error loading gallery: ${err.message}</p>`;
+      }
+    }
+
+    async function deletePhoto(id) {
+      if (!confirm('Are you sure you want to permanently delete this photo? This cannot be undone.')) return;
+      
+      try {
+        const res = await fetch(`/api/image/${id}`, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ adminPassword: adminPassword })
+        });
+
+        if (res.status === 401) {
+          alert('Unauthorized: Incorrect admin password.');
+          sessionStorage.removeItem('adminPassword');
+          location.reload();
+          return;
+        }
+
+        if (!res.ok) {
+          const data = await res.json();
+          throw new Error(data.error || 'Delete failed');
+        }
+
+        // Success — refresh gallery
+        fetchGallery();
+      } catch (err) {
+        alert('Failed to delete photo: ' + err.message);
+      }
+    }
+
+    // ---- Edit Modal ----
+    function openEditModal(id, title, desc) {
+      document.getElementById('editPhotoId').value = id;
+      document.getElementById('editTitle').value = title;
+      document.getElementById('editDesc').value = desc;
+      document.getElementById('editModalOverlay').classList.add('active');
+      document.body.classList.add('locked');
+    }
+
+    function closeEditModal() {
+      document.getElementById('editModalOverlay').classList.remove('active');
+      document.body.classList.remove('locked');
+    }
+
+    async function savePhotoEdit() {
+      const id = document.getElementById('editPhotoId').value;
+      const title = document.getElementById('editTitle').value.trim();
+      const description = document.getElementById('editDesc').value.trim();
+      const btn = document.getElementById('saveEditBtn');
+
+      if (!title) {
+        alert('Title cannot be empty.');
+        return;
+      }
+
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch(`/api/image/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title, description, adminPassword: adminPassword })
+        });
+
+        if (res.status === 401) {
+          alert('Unauthorized: Incorrect admin password.');
+          sessionStorage.removeItem('adminPassword');
+          location.reload();
+          return;
+        }
+
+        if (!res.ok) {
+          const data = await res.json();
+          throw new Error(data.error || 'Update failed');
+        }
+
+        closeEditModal();
+        fetchGallery();
+      } catch (err) {
+        alert('Failed to update photo: ' + err.message);
+      } finally {
+        btn.innerHTML = '<i class="fas fa-check"></i> Save Changes';
+        btn.disabled = false;
+      }
+    }
+
+    // Close modal on overlay click
+    document.getElementById('editModalOverlay').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('editModalOverlay')) {
+        closeEditModal();
+      }
+    });
+
+    // ---- Upload Photo ----
+    document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('uploadBtn');
+      const originalHTML = btn.innerHTML;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
+      btn.disabled = true;
+
+      try {
+        const formData = new FormData();
+        formData.append('title', document.getElementById('photoTitle').value);
+        formData.append('description', document.getElementById('photoDesc').value);
+        formData.append('adminPassword', adminPassword);
+        formData.append('mediaFile', document.getElementById('photoFile').files[0]);
+
+        const res = await fetch('/upload', {
+          method: 'POST',
+          body: formData
+        });
+
+        if (res.status === 401) {
+          alert('Unauthorized: Incorrect admin password.');
+          sessionStorage.removeItem('adminPassword');
+          location.reload();
+          return;
+        }
+
+        if (!res.ok) {
+          const data = await res.json();
+          throw new Error(data.error || 'Upload failed');
+        }
+
+        alert('Photo uploaded successfully!');
+        e.target.reset();
+        fetchGallery();
+      } catch (err) {
+        alert('Upload failed: ' + err.message);
+      } finally {
+        btn.innerHTML = originalHTML;
+        btn.disabled = false;
       }
     });
   </script>
