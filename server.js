@@ -15,24 +15,24 @@ app.use(express.static(path.join(__dirname, 'public'))); // Serve HTML frontend
 // MongoDB Connection Handling
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb+srv://aniruddhsharma803_db_user:ba9Rh4zd90QGOn1q@cluster0.svwvmzr.mongodb.net/shaishav_school?retryWrites=true&w=majority&appName=Cluster0";
 
+// Direct shard fallback URI bypassing DNS SRV lookups
+const DIRECT_URI = "mongodb://aniruddhsharma803_db_user:ba9Rh4zd90QGOn1q@ac-gmmxuf5-shard-00-00.svwvmzr.mongodb.net:27017,ac-gmmxuf5-shard-00-01.svwvmzr.mongodb.net:27017,ac-gmmxuf5-shard-00-02.svwvmzr.mongodb.net:27017/shaishav_school?ssl=true&replicaSet=atlas-13w1l4-shard-0&authSource=admin&retryWrites=true&w=majority";
+
 let isConnecting = false;
 
 const connectDB = async () => {
   if (mongoose.connection.readyState === 1 || isConnecting) return;
   isConnecting = true;
   try {
-    await mongoose.connect(MONGODB_URI, {
-      serverSelectionTimeoutMS: 5000
-    });
-    console.log('Connected to MongoDB Successfully!');
+    await mongoose.connect(MONGODB_URI, { serverSelectionTimeoutMS: 5000 });
+    console.log('Connected to MongoDB Atlas SRV Successfully!');
   } catch (err) {
-    console.warn('Primary SRV MongoDB connection failed, attempting fallback...', err.message);
-    const directUri = "mongodb://aniruddhsharma803_db_user:ba9Rh4zd90QGOn1q@cluster0-shard-00-00.svwvmzr.mongodb.net:27017,cluster0-shard-00-01.svwvmzr.mongodb.net:27017,cluster0-shard-00-02.svwvmzr.mongodb.net:27017/shaishav_school?ssl=true&authSource=admin&retryWrites=true&w=majority";
+    console.warn('SRV MongoDB connection note:', err.message);
     try {
-      await mongoose.connect(directUri, { serverSelectionTimeoutMS: 5000 });
-      console.log('Connected to MongoDB via Direct Seeds Successfully!');
+      await mongoose.connect(DIRECT_URI, { serverSelectionTimeoutMS: 5000 });
+      console.log('Connected to MongoDB Atlas Direct Shards Successfully!');
     } catch (err2) {
-      console.error('Fallback Direct MongoDB Connection Error:', err2.message);
+      console.error('MongoDB Atlas Connection Error:', err2.message);
     }
   } finally {
     isConnecting = false;
@@ -50,7 +50,7 @@ app.use(async (req, res, next) => {
     }
     if (mongoose.connection.readyState !== 1) {
       return res.status(503).json({ 
-        message: "Database connection is initializing or blocked. Please verify MongoDB Atlas IP Whitelist includes 0.0.0.0/0." 
+        message: "Database Authentication or Connection Failed. Please check MongoDB Atlas -> Database Access username/password." 
       });
     }
   }
