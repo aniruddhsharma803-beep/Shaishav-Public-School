@@ -3,15 +3,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
-const dns = require('dns');
-
-// Fix Windows DNS querySrv ECONNREFUSED for MongoDB Atlas
-try {
-  dns.setDefaultResultOrder('ipv4first');
-  dns.setServers(['8.8.8.8', '1.1.1.1', '8.8.4.4']);
-} catch (e) {
-  console.log('DNS configuration note:', e.message);
-}
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -21,18 +12,38 @@ app.use(cors());
 app.use(express.json()); // Parses incoming JSON
 app.use(express.static(path.join(__dirname, 'public'))); // Serve HTML frontend
 
-// MongoDB Connection
-const primaryUri = process.env.MONGODB_URI;
-const directUri = "mongodb://aniruddhsharma803_db_user:ba9Rh4zd90QGOn1q@cluster0-shard-00-00.svwvmzr.mongodb.net:27017,cluster0-shard-00-01.svwvmzr.mongodb.net:27017,cluster0-shard-00-02.svwvmzr.mongodb.net:27017/shaishav_school?ssl=true&authSource=admin&retryWrites=true&w=majority";
+// MongoDB Connection Handling
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb+srv://aniruddhsharma803_db_user:ba9Rh4zd90QGOn1q@cluster0.svwvmzr.mongodb.net/shaishav_school?retryWrites=true&w=majority&appName=Cluster0";
 
-mongoose.connect(primaryUri)
-  .then(() => console.log('Connected to MongoDB Successfully!'))
-  .catch((err) => {
-    console.warn('Primary SRV MongoDB connection failed, trying direct connection...', err.message);
-    mongoose.connect(directUri)
-      .then(() => console.log('Connected to MongoDB via Direct Seeds Successfully!'))
-      .catch((err2) => console.error('MongoDB Direct Connection Error:', err2));
-  });
+const connectDB = async () => {
+  try {
+    await mongoose.connect(MONGODB_URI, {
+      serverSelectionTimeoutMS: 8000
+    });
+    console.log('Connected to MongoDB Successfully!');
+  } catch (err) {
+    console.warn('Primary SRV MongoDB connection failed, attempting fallback...', err.message);
+    const directUri = "mongodb://aniruddhsharma803_db_user:ba9Rh4zd90QGOn1q@cluster0-shard-00-00.svwvmzr.mongodb.net:27017,cluster0-shard-00-01.svwvmzr.mongodb.net:27017,cluster0-shard-00-02.svwvmzr.mongodb.net:27017/shaishav_school?ssl=true&authSource=admin&retryWrites=true&w=majority";
+    try {
+      await mongoose.connect(directUri, { serverSelectionTimeoutMS: 8000 });
+      console.log('Connected to MongoDB via Direct Seeds Successfully!');
+    } catch (err2) {
+      console.error('Fallback Direct MongoDB Connection Error:', err2.message);
+    }
+  }
+};
+
+connectDB();
+
+// DB Readiness Check Middleware
+app.use((req, res, next) => {
+  if (req.path.startsWith('/api/') && req.path !== '/api/notices/login' && mongoose.connection.readyState !== 1) {
+    return res.status(503).json({ 
+      message: "Database connection is initializing or blocked. Please verify MongoDB Atlas IP Whitelist includes 0.0.0.0/0." 
+    });
+  }
+  next();
+});
 
 // Routes
 const noticeRoutes = require('./routes/notices');
