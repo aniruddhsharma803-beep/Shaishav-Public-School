@@ -6,128 +6,358 @@
   <title>Admin Dashboard — Shaishav Public School</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
-    body { font-family: 'Inter', sans-serif; background-color: #000; color: #fff; margin: 0; padding: 40px 20px; min-height: 100vh;
-      background-image: 
-        radial-gradient(at 0% 0%, rgba(255, 99, 132, 0.5) 0px, transparent 50%),
-        radial-gradient(at 100% 0%, rgba(153, 102, 255, 0.5) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(54, 162, 235, 0.5) 0px, transparent 50%),
-        radial-gradient(at 0% 100%, rgba(75, 192, 192, 0.5) 0px, transparent 50%);
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
+    
+    * { box-sizing: border-box; }
+    
+    body {
+      font-family: 'Poppins', 'Inter', sans-serif;
+      background-color: #f4f6f9;
+      color: #1e293b;
+      margin: 0;
+      padding: 40px 20px;
+      min-height: 100vh;
     }
-    .container { max-width: 800px; margin: 0 auto; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); padding: 40px; border-radius: 20px; box-shadow: 0 8px 32px 0 rgba(0,0,0,0.37); border: 1px solid rgba(255,255,255,0.18); }
-    h1 { text-align: center; color: #fff; font-weight: 800; font-size: 2.5rem; margin-top: 0; margin-bottom: 40px; letter-spacing: 1px;}
-    h1 span.accent { color: #49ffe6; }
-    h2 { color: #fff; font-weight: 600; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 15px; margin-top: 40px; margin-bottom: 25px; font-size: 1.4rem;}
-    form { display: grid; gap: 20px; margin-bottom: 50px; }
-    label { font-weight: 600; color: rgba(255,255,255,0.9); font-size: 0.95rem; letter-spacing: 0.5px;}
-    input, select, textarea { padding: 14px; border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.1); color: #fff; font-family: 'Inter', sans-serif; transition: 0.3s; font-size: 1rem;}
-    input:focus, select:focus, textarea:focus { border-color: #49ffe6; box-shadow: 0 0 15px rgba(73,255,230,0.3); outline: none; background: rgba(255,255,255,0.15);}
-    select option { background: #1a1a2e; color: #fff;}
-    button { background: rgba(255, 255, 255, 0.2); color: #fff; border: 1px solid rgba(255,255,255,0.4); padding: 16px 24px; border-radius: 30px; font-weight: 600; font-size: 1.1rem; cursor: pointer; transition: 0.3s; letter-spacing: 1px;}
-    button:hover { background: rgba(255, 255, 255, 0.3); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(255,255,255,0.2); }
     
-    .notice-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 25px; border-radius: 12px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.18); border-left: 5px solid #c5c6c7; transition: 0.3s;}
-    .notice-card:hover { transform: translateX(5px); background: rgba(255, 255, 255, 0.1); box-shadow: 0 8px 25px rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.3);}
-    .notice-card.accent { border-left-color: #ff6b6b; }
-    .notice-card.primary { border-left-color: #ffd700; }
-    .notice-card.green { border-left-color: #4CAF50; }
-    .notice-card strong { color: #fff; font-size: 1.2rem; display: inline-block; margin-bottom: 8px;}
-    .notice-card small { color: rgba(197,198,199,0.8) !important; font-size: 0.9rem;}
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      border: 1px solid #e2e8f0;
+      position: relative;
+    }
+
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #e2e8f0;
+    }
     
-    .btn-delete { background: rgba(255,107,107,0.1); color: #ff6b6b; padding: 10px 18px; font-size: 0.95rem; border-radius: 8px; border: 1px solid rgba(255,107,107,0.3); font-weight: 600;}
-    .btn-delete:hover { background: #ff6b6b; color: #fff; box-shadow: 0 5px 15px rgba(255,107,107,0.4); transform: translateY(-2px);}
+    h1 {
+      color: #0f172a;
+      font-weight: 700;
+      font-size: 1.8rem;
+      margin: 0;
+    }
+
+    .btn-logout {
+      background: #fee2e2;
+      color: #dc2626;
+      border: 1px solid #fca5a5;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-logout:hover {
+      background: #dc2626;
+      color: #ffffff;
+    }
     
-    /* Premium Login Modal */
+    h2 {
+      color: #1e293b;
+      font-weight: 600;
+      margin-top: 30px;
+      margin-bottom: 20px;
+      font-size: 1.25rem;
+    }
+
+    form {
+      display: grid;
+      gap: 18px;
+      margin-bottom: 40px;
+    }
+
+    label {
+      font-weight: 600;
+      color: #334155;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    input, select, textarea {
+      padding: 12px 16px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      width: 100%;
+      box-sizing: border-box;
+      background: #f8fafc;
+      color: #0f172a;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #f26a36;
+      outline: none;
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(242, 106, 54, 0.15);
+    }
+
+    select option {
+      background: #ffffff;
+      color: #1e293b;
+    }
+
+    .btn-submit {
+      background: linear-gradient(135deg, #f26a36, #fb923c);
+      color: #ffffff;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 1.05rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 6px 18px rgba(242, 106, 54, 0.35);
+      width: 100%;
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(242, 106, 54, 0.45);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .notice-card {
+      background: #f8fafc;
+      padding: 20px 24px;
+      border-radius: 14px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid #e2e8f0;
+      border-left: 5px solid #94a3b8;
+      transition: 0.2s ease;
+    }
+    
+    .notice-card:hover {
+      transform: translateX(4px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      background: #ffffff;
+    }
+
+    .notice-card.accent { border-left-color: #ef4444; }
+    .notice-card.primary { border-left-color: #f59e0b; }
+    .notice-card.green { border-left-color: #10b981; }
+    
+    .notice-card strong {
+      color: #0f172a;
+      font-size: 1.1rem;
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+    
+    .notice-card small {
+      color: #64748b !important;
+      font-size: 0.85rem;
+    }
+    
+    .btn-delete {
+      background: #fee2e2;
+      color: #dc2626;
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      border-radius: 8px;
+      border: 1px solid #fca5a5;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .btn-delete:hover {
+      background: #dc2626;
+      color: #ffffff;
+    }
+    
+    /* Clean White Modal UI (Matching Upload Photo Modal) */
     body.locked { overflow: hidden; }
+
     #loginOverlay {
-      position: fixed; inset: 0; z-index: 9999;
-      background-color: #000;
-      background-image: 
-        radial-gradient(at 0% 0%, rgba(255, 99, 132, 0.5) 0px, transparent 50%),
-        radial-gradient(at 100% 0%, rgba(153, 102, 255, 0.5) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(54, 162, 235, 0.5) 0px, transparent 50%),
-        radial-gradient(at 0% 100%, rgba(75, 192, 192, 0.5) 0px, transparent 50%);
-      display: flex; align-items: center; justify-content: center;
-      transition: opacity 0.4s ease;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background-color: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.3s ease;
     }
+
     .login-modal {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 50px 40px; border-radius: 24px;
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      text-align: center; max-width: 420px; width: 90%;
-      color: #fff;
+      background: #ffffff;
+      padding: 35px 35px;
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+      max-width: 400px;
+      width: 90%;
+      color: #1e293b;
+      position: relative;
     }
-    .login-modal h2 { margin-top: 0; margin-bottom: 40px; font-weight: 800; font-size: 2rem; letter-spacing: 2px; }
-    .login-modal h2 span.accent { color: #49ffe6; }
-    .input-group { position: relative; margin-bottom: 25px; text-align: left; }
-    .input-group i { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); color: rgba(255, 255, 255, 0.8); font-size: 1.2rem; z-index: 10; cursor: pointer; user-select: none; transition: 0.2s; }
-    .input-group i:hover { color: #49ffe6; transform: translateY(-50%) scale(1.15); }
+
+    .login-modal h2 {
+      margin-top: 0;
+      margin-bottom: 25px;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #0f172a;
+      text-align: left;
+    }
+
+    .modal-field {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .modal-field label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #334155;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-wrapper input {
+      background: #edf4ff;
+      border: 1px solid #dce6f5;
+      border-radius: 12px;
+      padding: 14px 45px 14px 16px;
+      color: #1e293b;
+      font-size: 0.95rem;
+      width: 100%;
+      box-sizing: border-box;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    .input-wrapper input:focus {
+      border-color: #f26a36;
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(242, 106, 54, 0.15);
+    }
+
+    .input-wrapper i.toggle-icon {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #64748b;
+      font-size: 1.1rem;
+      cursor: pointer;
+      z-index: 10;
+      padding: 6px;
+      user-select: none;
+      transition: 0.2s;
+    }
+
+    .input-wrapper i.toggle-icon:hover {
+      color: #f26a36;
+    }
+
     input::-ms-reveal, input::-ms-clear { display: none; }
-    .login-modal input.glass-input {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 12px; padding: 18px 50px 18px 20px;
-      color: #fff; font-size: 1rem; width: 100%; box-sizing: border-box; outline: none; transition: 0.3s;
+
+    .btn-login {
+      background: linear-gradient(135deg, #f26a36, #fb923c);
+      border: none;
+      color: #ffffff;
+      padding: 14px 24px;
+      border-radius: 25px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      width: 100%;
+      cursor: pointer;
+      transition: 0.2s;
+      box-shadow: 0 6px 18px rgba(242, 106, 54, 0.35);
+      margin-top: 10px;
     }
-    .login-modal input.glass-input::placeholder { color: rgba(255,255,255,0.7); }
-    .login-modal input.glass-input:focus { border-color: #49ffe6; background: rgba(255,255,255,0.15); box-shadow: 0 0 15px rgba(73,255,230,0.3); }
-    
-    .login-modal button.glass-btn {
-      background: rgba(255, 255, 255, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      color: #fff; padding: 16px 24px; border-radius: 30px;
-      font-size: 1.1rem; font-weight: 600; width: 60%; cursor: pointer; transition: 0.3s; letter-spacing: 1px; margin-top: 10px;
+
+    .btn-login:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(242, 106, 54, 0.45);
     }
-    .login-modal button.glass-btn:hover { background: rgba(255, 255, 255, 0.3); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(255,255,255,0.2); }
-    
-    .login-modal .links { display: flex; justify-content: space-between; margin-top: 30px; font-size: 0.85rem; color: #fff; padding: 0 10px; }
-    .login-modal .links span { cursor: pointer; transition: 0.3s; opacity: 0.8; }
-    .login-modal .links span:hover { opacity: 1; color: #49ffe6; }
+
+    #loginError {
+      color: #ef4444;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-top: 12px;
+      margin-bottom: 0;
+      display: none;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Premium Login Overlay -->
+  <!-- Clean Light Login Overlay (Matches Upload Photo Modal) -->
   <div id="loginOverlay">
     <div class="login-modal">
-      <h2>ADMIN<span class="accent">PORTAL</span><br><span style="font-size: 1.2rem; font-weight: 400; letter-spacing: 1px;">LOGIN</span></h2>
+      <h2>Admin Login</h2>
       
-      <div class="input-group">
-        <input type="text" class="glass-input" placeholder="Username" value="Admin" readonly>
-        <i class="fas fa-user"></i>
+      <div class="modal-field">
+        <label>Username</label>
+        <div class="input-wrapper">
+          <input type="text" value="Admin" readonly style="background:#f1f5f9; cursor:not-allowed;">
+        </div>
       </div>
       
-      <div class="input-group">
-        <input type="password" id="adminPasswordInput" class="glass-input" placeholder="**********" onkeypress="if(event.key === 'Enter') submitPassword()">
-        <i id="togglePasswordIcon" class="fas fa-eye" onclick="togglePasswordVisibility()" style="cursor: pointer;" title="Show Password"></i>
+      <div class="modal-field">
+        <label>Admin Password</label>
+        <div class="input-wrapper">
+          <input type="password" id="adminPasswordInput" placeholder="Enter password" onkeypress="if(event.key === 'Enter') submitPassword()">
+          <i id="togglePasswordIcon" class="fas fa-eye toggle-icon" onclick="togglePasswordVisibility()" title="Show Password"></i>
+        </div>
       </div>
       
-      <p id="loginError" style="color: #ff6b6b; font-size: 0.9rem; font-weight: 600; text-align: center; margin-top: -10px; margin-bottom: 20px; display: none; text-shadow: 0 0 5px rgba(255,107,107,0.4);"></p>
-      
-      <button id="loginBtn" class="glass-btn" onclick="submitPassword()">LOGIN</button>
-      
-      <div class="links">
-        <span>Remember me</span>
-        <span>Forgot password?</span>
-      </div>
+      <button id="loginBtn" class="btn-login" onclick="submitPassword()">Submit</button>
+      <p id="loginError"></p>
     </div>
   </div>
 
-  <div class="container" style="position: relative;">
-    <button onclick="logoutAdmin()" style="position: absolute; top: 20px; right: 20px; background: rgba(255,107,107,0.1); color: #ff6b6b; border: 1px solid rgba(255,107,107,0.3); padding: 8px 16px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase;">
-      <i class="fas fa-sign-out-alt"></i> Log Out
-    </button>
-    <h1>Notice Board Admin</h1>
+  <!-- Admin Main Dashboard -->
+  <div class="container">
+    <div class="admin-header">
+      <h1>Notice Board Admin</h1>
+      <button class="btn-logout" onclick="logoutAdmin()">
+        <i class="fas fa-sign-out-alt"></i> Log Out
+      </button>
+    </div>
 
     <h2>Add New Notice</h2>
     <form id="noticeForm">
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
         <div>
           <label>Date Number (e.g. 25)</label>
-          <input type="text" id="date" required>
+          <input type="text" id="date" placeholder="25" required>
         </div>
         <div>
           <label>Month</label>
@@ -152,7 +382,7 @@
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
         <div>
           <label>Badge Label (e.g. NEW, UPDATE)</label>
-          <input type="text" id="label" required>
+          <input type="text" id="label" placeholder="NEW" required>
         </div>
         <div>
           <label>Badge Color</label>
@@ -166,19 +396,21 @@
 
       <div>
         <label>Title</label>
-        <input type="text" id="title" required>
+        <input type="text" id="title" placeholder="Notice Title" required>
       </div>
 
       <div>
         <label>Description</label>
-        <textarea id="description" rows="3" required></textarea>
+        <textarea id="description" rows="3" placeholder="Notice Details..." required></textarea>
       </div>
 
-      <button type="submit">Submit Notice</button>
+      <button type="submit" id="submitBtn" class="btn-submit">
+        <i class="fas fa-paper-plane"></i> Submit Notice
+      </button>
     </form>
 
-    <h2 style="margin-top: 50px;">Current Notices</h2>
-    <div id="noticeList">Loading...</div>
+    <h2 style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #e2e8f0;">Current Notices</h2>
+    <div id="noticeList">Loading notices...</div>
   </div>
 
   <script>
@@ -189,11 +421,11 @@
       const icon = document.getElementById('togglePasswordIcon');
       if (pwdInput.type === 'password') {
         pwdInput.type = 'text';
-        icon.className = 'fas fa-eye-slash';
+        icon.className = 'fas fa-eye-slash toggle-icon';
         icon.title = 'Hide Password';
       } else {
         pwdInput.type = 'password';
-        icon.className = 'fas fa-eye';
+        icon.className = 'fas fa-eye toggle-icon';
         icon.title = 'Show Password';
       }
     }
@@ -234,14 +466,14 @@
           document.getElementById('loginOverlay').style.display = 'none';
           document.body.classList.remove('locked');
           fetchNotices();
-        }, 400);
+        }, 300);
 
       } catch (err) {
-        btn.textContent = "LOGIN";
-        errorLabel.innerText = "ACCESS DENIED. TRY AGAIN.";
+        btn.textContent = "Submit";
+        errorLabel.innerText = "ACCESS DENIED: Incorrect password.";
         errorLabel.style.display = "block";
-        document.getElementById('adminPasswordInput').style.borderColor = "#ff6b6b";
-        setTimeout(() => { document.getElementById('adminPasswordInput').style.borderColor = "rgba(255,255,255,0.2)"; }, 2000);
+        document.getElementById('adminPasswordInput').style.borderColor = "#ef4444";
+        setTimeout(() => { document.getElementById('adminPasswordInput').style.borderColor = "#dce6f5"; }, 2000);
       }
     }
 
@@ -258,15 +490,15 @@
         const list = document.getElementById('noticeList');
         list.innerHTML = '';
         
-        if(notices.length === 0) list.innerHTML = '<p>No notices currently active.</p>';
+        if(notices.length === 0) list.innerHTML = '<p style="color:#64748b; font-style:italic;">No notices currently active.</p>';
 
         notices.forEach(notice => {
           const div = document.createElement('div');
           div.className = `notice-card ${notice.labelColor}`;
           div.innerHTML = `
             <div>
-              <strong>[${notice.label}]</strong> ${notice.title} <br>
-              <small style="color:#666;">Date: ${notice.date} ${notice.month}</small>
+              <strong>[${notice.label}] ${notice.title}</strong><br>
+              <small>Date: ${notice.date} ${notice.month} | Description: ${notice.description || 'N/A'}</small>
             </div>
             <button class="btn-delete" onclick="deleteNotice('${notice._id}')">Delete</button>
           `;
@@ -274,7 +506,7 @@
         });
       } catch (err) {
         console.error("Fetch error:", err);
-        document.getElementById('noticeList').innerHTML = `<p style="color:red">Error loading notices: ${err.message}</p>`;
+        document.getElementById('noticeList').innerHTML = `<p style="color:#ef4444">Error loading notices: ${err.message}</p>`;
       }
     }
 
@@ -299,6 +531,11 @@
 
     document.getElementById('noticeForm').addEventListener('submit', async (e) => {
       e.preventDefault();
+      const submitBtn = document.getElementById('submitBtn');
+      const originalBtnHTML = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+      submitBtn.disabled = true;
+
       try {
         const newNotice = {
           date: document.getElementById('date').value,
@@ -335,10 +572,11 @@
         fetchNotices();
       } catch (err) {
         alert("Failed to submit notice: " + err.message);
+      } finally {
+        submitBtn.innerHTML = originalBtnHTML;
+        submitBtn.disabled = false;
       }
     });
-
-    // Initial load handled by login sequence
   </script>
 
 </body>
