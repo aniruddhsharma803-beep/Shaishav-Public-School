@@ -63,7 +63,9 @@
     .login-modal h2 { margin-top: 0; margin-bottom: 40px; font-weight: 800; font-size: 2rem; letter-spacing: 2px; }
     .login-modal h2 span.accent { color: #49ffe6; }
     .input-group { position: relative; margin-bottom: 25px; text-align: left; }
-    .input-group i { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: #fff; font-size: 1.2rem; }
+    .input-group i { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); color: rgba(255, 255, 255, 0.8); font-size: 1.2rem; z-index: 10; cursor: pointer; user-select: none; transition: 0.2s; }
+    .input-group i:hover { color: #49ffe6; transform: translateY(-50%) scale(1.15); }
+    input::-ms-reveal, input::-ms-clear { display: none; }
     .login-modal input.glass-input {
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);

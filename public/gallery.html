@@ -201,7 +201,7 @@
         <label style="display:block; margin-bottom:5px; font-size:0.9rem; font-weight:500;">Admin Password</label>
         <div style="position: relative; margin-bottom: 25px;">
           <input type="password" id="galleryAdminPassword" name="adminPassword" placeholder="Required" required style="width:100%; padding:10px 40px 10px 10px; border:1px solid #ddd; border-radius:8px; box-sizing:border-box;">
-          <i id="galleryToggleIcon" class="fas fa-eye" onclick="toggleGalleryPassword()" style="position:absolute; right:12px; top:50%; transform:translateY(-50%); cursor:pointer; color:#666;" title="Show Password"></i>
+          <i id="galleryToggleIcon" class="fas fa-eye" onclick="toggleGalleryPassword()" style="position:absolute; right:12px; top:50%; transform:translateY(-50%); cursor:pointer; color:#666; z-index:10; user-select:none; padding:5px;" title="Show Password"></i>
         </div>
 
         <button type="submit" class="btn btn-accent" style="width:100%; justify-content:center;">Submit</button>
