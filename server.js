@@ -59,7 +59,10 @@ app.use(async (req, res, next) => {
 
 // Routes
 const noticeRoutes = require('./routes/notices');
+const galleryRoutes = require('./routes/gallery');
+
 app.use('/api/notices', noticeRoutes);
+app.use('/', galleryRoutes);
 
 // Catch all for routes - Send back to home (or 404 page if you like)
 app.get('*', (req, res) => {
